@@ -9,7 +9,7 @@ $.ajaxSetup({
 $('.status').change(function(){
     var id = $(this).value;
     $.ajax({
-       url : '{{ route("tasks.statusChange")}}',
+       url : '{{ route("tasks.status") }}',
        data: {
          "_token": "{{ csrf_token() }}",
          "id": id
@@ -18,7 +18,7 @@ $('.status').change(function(){
        dataType: 'json',
        success: function()
        {
-            alert('Changed')
+            alert('Status Changed')
        },
        error: function()
       {

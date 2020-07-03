@@ -46,6 +46,7 @@
                                                 @if($role == 'menager')
                                                     {{ $task->status}}
                                                 @else
+                                                    @if($task->assignetTo->id == $userid)
                                                     <select name="status" id="status" class="form-control status  @error('status') is-invalid @enderror">
                                                         <option value="{{ $task->status}}">{{ $task->status}}</option>
                                                         <option value="created">Created</option>
@@ -53,6 +54,9 @@
                                                         <option value="in-progres">In-progress</option>
                                                         <option value="done">Done</option>
                                                     </select>
+                                                    @else
+                                                        {{ $task->status}}
+                                                    @endif
                                                 @endif
                                             </td>
                                             <td>{{ $task->description}}</td>

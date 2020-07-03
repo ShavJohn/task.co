@@ -1,4 +1,4 @@
-extends('layouts.main')
+@extends('layouts.main')
 
 @section('content')
     <main class="py-5">

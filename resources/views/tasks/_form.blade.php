@@ -17,8 +17,8 @@
             <div class="col-md-9">
                 <select name="assignt_to" id="assignt_to" class="form-control  @error('assignt_to') is-invalid @enderror">
                     <option value="">Select Developer</option>
-                    @foreach ($users as $id => $user )
-                        <option {{ $id === old('name', $user->name) ? 'selected' : '' }}value="{{ $id }}">{{ $user->name }}</option>
+                    @foreach ($users as $user )
+                        <option {{ $user === old('name', $user->id) ? 'selected' : '' }}value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
                 @error('assignt_to')

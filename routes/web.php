@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', "TaskController@index")->name("tasks.index");
 
 Route::middleware(['auth', 'verified'])->group(function (){
+
     Route::get('/home', 'TaskController@task')->name('tasks.task');
 
-    Route::post('/status/{id}', "TaskController@statusChange")->name("tasks.statusChange");
+    Route::post('/status/{id}', "TaskController@status")->name("tasks.status");
 
     Route::post('/home', "TaskController@store")->name("tasks.store");
 

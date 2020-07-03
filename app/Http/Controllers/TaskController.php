@@ -31,9 +31,9 @@ class TaskController extends Controller
         {
             $tasks = Task::with('createdBy', 'assignetTo')->search()->paginate(5);
         }
-
+        $userid = Auth::user()->id;
         $role = Auth::user()->role;
-        return view('tasks.task', compact('tasks', 'role'));
+        return view('tasks.task', compact('tasks', 'role', 'userid'));
     }
 
     /**
@@ -84,9 +84,9 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $tasks = Task::findOrFail($id);
+        $tasks = Task::find($id);
         $users = User::all()->where('role', 'developer');
-        return view('tasks.create', compact('tasks', 'users'));
+        return view('tasks.editd', compact('tasks', 'users'));
     }
 
     /**
@@ -101,8 +101,8 @@ class TaskController extends Controller
             'task_name' => 'required',
             'assignt_to' => 'required',
         ]);
-        $tasks = Task::find($id);
-        $tasks->update($request->all());
+        $task = Task::find($id);
+        $task->update($request->all());
         return redirect()->route('tasks.task')->with('message', "Task has been updated successfully");
     }
 
