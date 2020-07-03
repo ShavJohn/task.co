@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -14,9 +16,24 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate(10);
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index',);
+    }
+
+    public function task()
+    {
+        if(Auth::user()->role == 'menager')
+        {
+            $user = Auth::user()->id;
+            $tasks = Task::with('createdBy', 'assignetTo')->where('created_by', $user)->paginate(5);
+        }
+        else
+        {
+            $tasks = Task::with('createdBy', 'assignetTo')->paginate(5);
+        }
+
+        $role = Auth::user()->role;
+        return view('tasks.task', compact('tasks', 'role'));
     }
 
     /**
@@ -26,7 +43,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $tasks = new Task();
+        $users = User::all()->where('role', 'developer');
+        return view('tasks.create', compact('tasks', 'users'));
     }
 
     /**
@@ -37,8 +56,14 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'task_name' => 'required',
+            'assignt_to' => 'required',
+        ]);
+        Task::create($request->all());
+        return redirect()->route('tasks.task')->with('message', "Contact has been added successfully");
     }
+
 
     /**
      * Display the specified resource.
@@ -46,9 +71,10 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
+        $tasks = Task::with('createdBy', 'assignetTo')->find($id);
+        return view('tasks.show' , compact('tasks'));
     }
 
     /**
@@ -57,9 +83,10 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
-    {
-        //
+    public function edit($id) {
+        $tasks = Task::findOrFail($id);
+        $users = User::all()->where('role', 'developer');
+        return view('tasks.create', compact('tasks', 'users'));
     }
 
     /**
@@ -69,9 +96,25 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update($id, Request $request) {
+        $request->validate([
+            'task_name' => 'required',
+            'assignt_to' => 'required',
+        ]);
+        $tasks = Task::find($id);
+        $tasks->update($request->all());
+        return redirect()->route('tasks.task')->with('message', "Contact has been updated successfully");
+    }
+
+    public function statusChange($id, Request $request)
     {
-        //
+        $request->validate([
+            'status' => 'required',
+        ]);
+        $task = Task::find($id);
+        $task->update($request->all());
+
+        return redirect()->route('tasks.task');
     }
 
     /**
@@ -80,8 +123,11 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
+
+        return back()->with('message', "Contact has been deleted successfully");
     }
 }

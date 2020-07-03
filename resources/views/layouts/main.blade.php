@@ -19,8 +19,8 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand text-uppercase" href="{{ url('/') }}">
-                <strong>Contact</strong> App
+            <a class="navbar-dark text-uppercase" href="{{ url('/') }}">
+                <strong>TASK</strong> Page
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,8 +30,7 @@
             <div class="collapse navbar-collapse" id="navbar-toggler">
                 @auth
                     <ul class="navbar-nav">
-                        <li class="nav-item {{ request()->is('companies*') ? 'active' : '' }}"><a href="{{ route('companies.index') }}" class="nav-link">Companies</a></li>
-                        <li class="nav-item {{ request()->is('contacts*') ? 'active' : '' }}"><a href="{{ route('contacts.index') }}" class="nav-link">Contacts</a></li>
+                        <li class="nav-item active"><a href="{{ route('tasks.task') }}" class="nav-link">Taks</a></li>
                     </ul>
                 @endauth
                 <ul class="navbar-nav ml-auto">
@@ -41,10 +40,9 @@
                     @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ auth()->user()->fullName() }}
+                                {{ auth()->user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('settings.profile.edit') }}">Settings</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -70,5 +68,6 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     @yield('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/ajax.js') }}"></script>
 </body>
 </html>

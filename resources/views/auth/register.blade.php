@@ -43,9 +43,10 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Choos Yor Role') }}</label>
 
                             <div class="col-md-6">
-                                <select>
-                                    <option></option>
-                                    <option></option>
+                                <select id="role" name="role" type="text" class="form-control @error('role') is-valid @enderror" value="{{old('role')}}" required autocomplete="role" autofocus='role'>
+                                    <option value="selectRole" selected>Select Your Main Role</option>
+                                    <option value="menager">Manager</option>
+                                    <option value="developer">Developer</option>
                                 </select>
                             </div>
                         </div>
