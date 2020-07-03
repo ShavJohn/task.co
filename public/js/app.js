@@ -1,12 +1,3 @@
-let filterCompany = document.querySelector('#filter_company_id')
-
-if (filterCompany) {
-    filterCompany.addEventListener('change', function () {
-        let companyId = this.value || this.options[this.selectedIndex].value;
-        window.location.href = window.location.href.split('?')[0] + '?company_id=' + companyId
-    });
-}
-
 document.querySelectorAll('.btn-delete').forEach((button) => {
     button.addEventListener('click', function (event) {
         event.preventDefault();

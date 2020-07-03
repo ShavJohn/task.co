@@ -25,11 +25,11 @@ class TaskController extends Controller
         if(Auth::user()->role == 'menager')
         {
             $user = Auth::user()->id;
-            $tasks = Task::with('createdBy', 'assignetTo')->where('created_by', $user)->paginate(5);
+            $tasks = Task::with('createdBy', 'assignetTo')->search()->where('created_by', $user)->paginate(5);
         }
         else
         {
-            $tasks = Task::with('createdBy', 'assignetTo')->paginate(5);
+            $tasks = Task::with('createdBy', 'assignetTo')->search()->paginate(5);
         }
 
         $role = Auth::user()->role;
@@ -61,7 +61,7 @@ class TaskController extends Controller
             'assignt_to' => 'required',
         ]);
         Task::create($request->all());
-        return redirect()->route('tasks.task')->with('message', "Contact has been added successfully");
+        return redirect()->route('tasks.task')->with('message', "Task has been added successfully");
     }
 
 
@@ -103,7 +103,7 @@ class TaskController extends Controller
         ]);
         $tasks = Task::find($id);
         $tasks->update($request->all());
-        return redirect()->route('tasks.task')->with('message', "Contact has been updated successfully");
+        return redirect()->route('tasks.task')->with('message', "Task has been updated successfully");
     }
 
     public function statusChange($id, Request $request)
@@ -128,6 +128,6 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->delete();
 
-        return back()->with('message', "Contact has been deleted successfully");
+        return back()->with('message', "Task has been deleted successfully");
     }
 }

@@ -20,9 +20,9 @@ Route::get('/', "TaskController@index")->name("tasks.index");
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/home', 'TaskController@task')->name('tasks.task');
 
-    Route::post('/home', "TaskController@store")->name("tasks.store");
-
     Route::post('/status/{id}', "TaskController@statusChange")->name("tasks.statusChange");
+
+    Route::post('/home', "TaskController@store")->name("tasks.store");
 
     Route::get('/create', 'TaskController@create')->name('tasks.create');
 

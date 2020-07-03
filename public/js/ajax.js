@@ -1,9 +1,15 @@
 let statusBar  = document.querySelectorAll('#status');
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $('.status').change(function(){
     var id = $(this).value;
     $.ajax({
-       url : '{{ route( "/status/{id}" ) }}',
+       url : '{{ route("tasks.statusChange")}}',
        data: {
          "_token": "{{ csrf_token() }}",
          "id": id

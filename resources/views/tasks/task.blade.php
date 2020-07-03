@@ -20,6 +20,7 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @include('tasks._filter')
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>

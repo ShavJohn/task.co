@@ -21,6 +21,17 @@ class Task extends Model
         return $this->belongsTo(User::class, 'assignt_to');
     }
 
+    public function scopeSearch($query)
+    {
+        if ($search = request('search')) {
+            $query->where('task_name', 'LIKE', "%{$search}%");
+            $query->orWhere('created_by', 'LIKE', "%{$search}%");
+            $query->orWhere('assignt_to', 'LIKE', "%{$search}%");
+            $query->orWhere('status', 'LIKE', "%{$search}%");
+            $query->orWhere('description', 'LIKE', "%{$search}%");
+        }
+    }
+
     protected static function boot()
     {
         parent::boot();
