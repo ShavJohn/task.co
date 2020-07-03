@@ -61,7 +61,7 @@
                                             </td>
                                             <td>{{ $task->description}}</td>
                                             <td width="150">
-                                                <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-circle btn-outline-info"
+                                                <a href="{{ route('tasks.show', $task->task_name) }}" class="btn btn-sm btn-circle btn-outline-info"
                                                    title="Show"><i class="fa fa-eye"></i></a>
                                                 @if($role == 'menager')
                                                     <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-circle btn-outline-secondary"

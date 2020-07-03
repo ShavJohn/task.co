@@ -71,10 +71,10 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        $tasks = Task::with('createdBy', 'assignetTo')->find($id);
-        return view('tasks.show' , compact('tasks'));
+        //$task = Task::with('createdBy', 'assignetTo');
+        return view('tasks.show' , compact('task'));
     }
 
     /**

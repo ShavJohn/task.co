@@ -43,4 +43,8 @@ class Task extends Model
         });
     }
 
+    public function getRouteKeyName()
+    {
+       return 'task_name';
+    }
 }

@@ -27,7 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     Route::get('/create', 'TaskController@create')->name('tasks.create');
 
-    Route::get('/task/{id}', "TaskController@show")->name("tasks.show");
+    //Route::get('/task/{id}', "TaskController@show")->name("tasks.show");
+
+    Route::resource('tasks', 'TaskController');
 
     Route::put('/task/{id}', "TaskController@update")->name("tasks.update");
 
