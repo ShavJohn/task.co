@@ -21,21 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     Route::get('/home', 'TaskController@task')->name('tasks.task');
 
-    Route::post('/status/{id}', "TaskController@status")->name("tasks.status");
-
-    Route::post('/home', "TaskController@store")->name("tasks.store");
-
-    Route::get('/create', 'TaskController@create')->name('tasks.create');
-
-    //Route::get('/task/{id}', "TaskController@show")->name("tasks.show");
-
     Route::resource('tasks', 'TaskController');
-
-    Route::put('/task/{id}', "TaskController@update")->name("tasks.update");
-
-    Route::delete('/task/{id}', "TaskController@destroy")->name("tasks.destroy");
-
-    Route::get('/task/{id}/edit', "TaskController@edit")->name("tasks.edit");
 
 });
 
